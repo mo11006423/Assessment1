@@ -14,7 +14,7 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
 
     private final Object[] storage;
     private final int capacity;
-    private final int tail;
+    private int tail;
 
     public UnsortedArrayPriorityQueue(int capacity) {
         storage = new Object[capacity];
@@ -30,7 +30,15 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
-        //To be implemented
+        if (tail == capacity - 1) {
+            throw new QueueOverflowException();
+        } else {
+
+            for (int i = 0; i < capacity; i++) {
+                storage[i] = new Wrapper<>(item, priority);
+            }
+            tail++;
+        }
     }
 
     @Override
