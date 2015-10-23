@@ -10,52 +10,47 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Jamie Simpson
+ * @author 11006423
  */
-public class UnsortedArrayPriorityQueueTest {
+public class SortedArrayPriorityQueueTest {
 
-    public UnsortedArrayPriorityQueueTest() {
+    public SortedArrayPriorityQueueTest() {
     }
 
     /**
-     * Test of head method, of class UnsortedArrayPriorityQueue.
+     * Test of head method, of class SortedArrayPriorityQueue.
      */
     @Test
     public void testHead() throws Exception {
-
     }
 
     /**
-     * Test of add method, of class UnsortedArrayPriorityQueue.
+     * Test of add method, of class SortedArrayPriorityQueue.
      */
     @Test
     public void testAdd() throws Exception {
     }
 
     /**
-     * Test of remove method, of class UnsortedArrayPriorityQueue.
+     * Test of remove method, of class SortedArrayPriorityQueue.
      */
     @Test
     public void testRemove() throws Exception {
 
-
     }
 
     /**
-     * Test of isEmpty method, of class UnsortedArrayPriorityQueue.
+     * Test of isEmpty method, of class SortedArrayPriorityQueue.
      */
     @Test
     public void testIsEmpty() {
     }
 
     /**
-     * Test of toString method, of class UnsortedArrayPriorityQueue.
-     *
-     * @throws queuemanager.QueueOverflowException
+     * Test of toString method, of class SortedArrayPriorityQueue.
      */
     @Test
-    public void testToString() throws QueueOverflowException {
-
+    public void testToString() {
     }
 
 }

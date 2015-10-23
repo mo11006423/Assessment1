@@ -29,10 +29,10 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         if (isEmpty()) {
             throw new QueueUnderflowException();
         } else {
-            Wrapper<T> rtnVal = null;
+            Wrapper<T> rtnVal = (Wrapper<T>) storage[0];
             for (int i = 0; i < capacity; i++) {
                 Wrapper<T> item = (Wrapper<T>) storage[i];
-                if (item.getPriority() == 1) {
+                if (item.getPriority() > rtnVal.getPriority()) {
                     rtnVal = item;
                 }
             }
@@ -52,7 +52,6 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public void remove() throws QueueUnderflowException {
-        //To be implemented
     }
 
     @Override
