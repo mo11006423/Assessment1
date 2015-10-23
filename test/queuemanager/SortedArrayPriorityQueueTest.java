@@ -43,6 +43,10 @@ public class SortedArrayPriorityQueueTest {
         System.out.println(sor.toString());
         sor.remove();
         System.out.println(sor.toString());
+        sor.remove();
+        System.out.println(sor.toString());
+        sor.remove();
+        System.out.println(sor.toString());
 
     }
 

@@ -5,8 +5,6 @@
  */
 package queuemanager;
 
-import java.util.Arrays;
-
 /**
  *
  * @author Jamie Simpson
@@ -30,7 +28,7 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
             throw new QueueUnderflowException();
         } else {
             Wrapper<T> rtnVal = (Wrapper<T>) storage[0];
-            for (int i = 0; i < capacity; i++) {
+            for (int i = 0; i <= tail; i++) {
                 Wrapper<T> item = (Wrapper<T>) storage[i];
                 if (item.getPriority() > rtnVal.getPriority()) {
                     rtnVal = item;
@@ -52,20 +50,14 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public void remove() throws QueueUnderflowException {
-        Wrapper<T> highestPriority = (Wrapper<T>) storage[0];
-        int index = 0;
-        for (int i = 0; i < capacity; i++) {
-            Wrapper<T> item = (Wrapper<T>) storage[i];
-            if (item.getPriority() > highestPriority.getPriority()) {
-                highestPriority = item;
-                index = i;
-            }
-        }
-        //Now we know the item to remove and its position is highestPriority
-        if (index == capacity - 1) {
-            storage[index] = new Wrapper<>(null, -1);
+        if (isEmpty()) {
+            throw new QueueUnderflowException();
+        } else if (headIndex() == tail) {
+            storage[headIndex()] = null;
+            tail--;
         } else {
-            storage[index] = storage[index + 1];
+            storage[headIndex()] = storage[tail];
+            tail--;
         }
     }
 
@@ -76,6 +68,30 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public String toString() {
-        return Arrays.toString(storage);
+        String result = "[";
+        for (int i = 0; i <= tail; i++) {
+            if (i > 0) {
+                result = result + ", ";
+            }
+            result = result + storage[i];
+        }
+        result = result + "]";
+        return result;
+    }
+
+    public int headIndex() throws QueueUnderflowException {
+        int index = -1;
+        if (isEmpty()) {
+            throw new QueueUnderflowException();
+        } else {
+            for (int i = 0; i <= tail; i++) {
+                Wrapper<T> item = (Wrapper<T>) storage[i];
+                if (item == head()) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        return index;
     }
 }
