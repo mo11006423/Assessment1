@@ -36,6 +36,13 @@ public class SortedArrayPriorityQueueTest {
      */
     @Test
     public void testRemove() throws Exception {
+        SortedArrayPriorityQueue sor = new SortedArrayPriorityQueue(3);
+        sor.add(new Person("Jamie"), 2);
+        sor.add(new Person("Ryan"), 1);
+        sor.add(new Person("Bob"), 3);
+        System.out.println(sor.toString());
+        sor.remove();
+        System.out.println(sor.toString());
 
     }
 

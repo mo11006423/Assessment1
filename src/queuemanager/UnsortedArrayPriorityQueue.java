@@ -52,6 +52,21 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public void remove() throws QueueUnderflowException {
+        Wrapper<T> highestPriority = (Wrapper<T>) storage[0];
+        int index = 0;
+        for (int i = 0; i < capacity; i++) {
+            Wrapper<T> item = (Wrapper<T>) storage[i];
+            if (item.getPriority() > highestPriority.getPriority()) {
+                highestPriority = item;
+                index = i;
+            }
+        }
+        //Now we know the item to remove and its position is highestPriority
+        if (index == capacity - 1) {
+            storage[index] = new Wrapper<>(null, -1);
+        } else {
+            storage[index] = storage[index + 1];
+        }
     }
 
     @Override

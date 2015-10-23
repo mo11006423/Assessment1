@@ -37,6 +37,15 @@ public class UnsortedArrayPriorityQueueTest {
      */
     @Test
     public void testRemove() throws Exception {
+         UnsortedArrayPriorityQueue sor = new UnsortedArrayPriorityQueue(3);
+        sor.add(new Person("Jamie"), 2);
+        sor.add(new Person("Ryan"), 1);
+        sor.add(new Person("Bob"), 3);
+        System.out.println(sor.toString());
+        System.out.println(sor.head());
+        sor.remove();
+        System.out.println(sor.toString());
+        System.out.println(sor.head());
 
 
     }
