@@ -5,6 +5,8 @@
  */
 package queuemanager;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Jamie Simpson
@@ -33,11 +35,8 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         if (tail == capacity - 1) {
             throw new QueueOverflowException();
         } else {
-
-            for (int i = 0; i < capacity; i++) {
-                storage[i] = new Wrapper<>(item, priority);
-            }
             tail++;
+            storage[tail] = new Wrapper<>(item, priority);
         }
     }
 
@@ -54,7 +53,6 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public String toString() {
-        //To be implemented
-        return null;
+        return Arrays.toString(storage);
     }
 }
