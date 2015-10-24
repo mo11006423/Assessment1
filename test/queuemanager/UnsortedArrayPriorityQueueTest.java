@@ -73,10 +73,64 @@ public class UnsortedArrayPriorityQueueTest {
     }
 
     /**
-     * Test of isEmpty method, of class UnsortedArrayPriorityQueue.
+     * Test of isEmpty method, of class UnsortedArrayPriorityQueue. This method
+     * will test that upon creating an instance of the
+     * UnsortedArrayPriorityQueue class, that the array is empty. Upon adding
+     * values the array will be testing to not be empty.
+     *
+     * Single additions, multiple additions and re-additions are all used to
+     * test the different state of isEmpty.
+     *
+     * @throws queuemanager.QueueOverflowException
+     * @throws queuemanager.QueueUnderflowException
      */
     @Test
-    public void testIsEmpty() {
+    public void testIsEmpty() throws QueueOverflowException, QueueUnderflowException {
+        //Capacity for 3 (odd number)
+        unsorted = new UnsortedArrayPriorityQueue(3);
+        //No values yet added
+        assertTrue(unsorted.isEmpty());
+        //Capacity for 4 (even number)
+        unsorted = new UnsortedArrayPriorityQueue(4);
+        //Empty as no values added
+        assertTrue(unsorted.isEmpty());
+        //Large number - Java vm throws error at peak integer value so last digit removed
+        unsorted = new UnsortedArrayPriorityQueue(214748364);
+        assertTrue(unsorted.isEmpty());
+        //Testing 0 size
+        unsorted = new UnsortedArrayPriorityQueue(0);
+        assertTrue(unsorted.isEmpty());
+        //New queue for 1 person
+        unsorted = new UnsortedArrayPriorityQueue(1);
+        //check is empty
+        assertTrue(unsorted.isEmpty());
+        //add person
+        unsorted.add(new Person("Test Person"), 1);
+        //check is not empty
+        assertFalse(unsorted.isEmpty());
+        //Remove person
+        unsorted.remove();
+        //check is empty again
+        assertTrue(unsorted.isEmpty());
+        //New queue for 3 people
+        unsorted = new UnsortedArrayPriorityQueue(3);
+        //check with 3 people
+        unsorted.add(new Person("Test Person1"), 3);
+        unsorted.add(new Person("Test Person2"), 1);
+        unsorted.add(new Person("Test Person3"), 2);
+        assertFalse(unsorted.isEmpty());
+        //Remove 1 person (still 2 people)
+        unsorted.remove();
+        assertFalse(unsorted.isEmpty());
+        //Remove 2nd person
+        unsorted.remove();
+        assertFalse(unsorted.isEmpty());
+        //Remove 3rd person (now empty)
+        unsorted.remove();
+        assertTrue(unsorted.isEmpty());
+        unsorted.add(new Person("New person same instance"), 4);
+        assertFalse(unsorted.isEmpty());
+
     }
 
     /**
