@@ -79,7 +79,7 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
         return result;
     }
 
-    public int headIndex() throws QueueUnderflowException {
+    private int headIndex() throws QueueUnderflowException {
         int index = -1;
         if (isEmpty()) {
             throw new QueueUnderflowException();
@@ -93,5 +93,9 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
             }
         }
         return index;
+    }
+
+    public Object[] getStorage() {
+        return storage;
     }
 }

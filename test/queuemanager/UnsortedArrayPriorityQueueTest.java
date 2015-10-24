@@ -14,7 +14,39 @@ import static org.junit.Assert.*;
  */
 public class UnsortedArrayPriorityQueueTest {
 
+    //Set up an instance variable of the UnsortedArrayPriorityQueue class
+    private UnsortedArrayPriorityQueue unsorted;
+
     public UnsortedArrayPriorityQueueTest() {
+    }
+
+    /**
+     * This method tests the capacity (how many items can be stored) within the
+     * object array. The unsorted array variable is set to different lengths,
+     * starting with 5 and moving down to . it is then asserted that that value
+     * is equal to the length of the storage variable, accessed through a get
+     * method in the UnsortedArrayPriorityQueue class.
+     *
+     * The method also tests that the correct exception is thrown if a negative
+     * number is entered as the size.
+     *
+     */
+    @Test(expected = NegativeArraySizeException.class)
+    public void testCapacity() {
+        unsorted = new UnsortedArrayPriorityQueue(5);
+        assertEquals(5, unsorted.getStorage().length);
+        unsorted = new UnsortedArrayPriorityQueue(4);
+        assertEquals(4, unsorted.getStorage().length);
+        unsorted = new UnsortedArrayPriorityQueue(3);
+        assertEquals(3, unsorted.getStorage().length);
+        unsorted = new UnsortedArrayPriorityQueue(2);
+        assertEquals(2, unsorted.getStorage().length);
+        unsorted = new UnsortedArrayPriorityQueue(1);
+        assertEquals(1, unsorted.getStorage().length);
+        unsorted = new UnsortedArrayPriorityQueue(0);
+        assertEquals(0, unsorted.getStorage().length);
+        unsorted = new UnsortedArrayPriorityQueue(-1);
+
     }
 
     /**
