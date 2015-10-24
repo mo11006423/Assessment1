@@ -50,11 +50,53 @@ public class UnsortedArrayPriorityQueueTest {
     }
 
     /**
-     * Test of head method, of class UnsortedArrayPriorityQueue.
+     * Test of head method, of class UnsortedArrayPriorityQueue. This tests that
+     * after populating an array of 5 people that the person (item) with the
+     * highest priority is the one returned as the head() method is called The
+     * highest priority is the highest number (NOT the lowest number) and in the
+     * case of the scenario will be 5,4,3,2,1 by Person 4,5,2,1,3 as they are
+     * each removed from the array
+     *
+     * Tests are also carried out when a new item is added with a higher
+     * priority than currently stored items
+     *
+     * @throws queuemanager.QueueUnderflowException
+     * @throws queuemanager.QueueOverflowException
      */
     @Test
-    public void testHead() throws Exception {
+    public void testHead() throws QueueUnderflowException, QueueOverflowException {
+        addHelper();
+        assertEquals(unsorted.head().toString(), "(Person 4, 5)");
+        unsorted.remove();
+        assertEquals(unsorted.head().toString(), "(Person 5, 4)");
+        unsorted.remove();
+        assertEquals(unsorted.head().toString(), "(Person 2, 3)");
+        unsorted.remove();
+        assertEquals(unsorted.head().toString(), "(Person 1, 2)");
+        unsorted.remove();
+        assertEquals(unsorted.head().toString(), "(Person 3, 1)");
+        unsorted = new UnsortedArrayPriorityQueue(2);
+        unsorted.add(new Person("Jamie"), 1);
+        assertEquals(unsorted.head().toString(), "(Jamie, 1)");
+        //Add something with now higher priority
+        unsorted.add(new Person("Jamie's Brother"), 3);
+        assertEquals(unsorted.head().toString(), "(Jamie's Brother, 3)");
 
+    }
+
+    /**
+     * This method tests that an exception is thrown when the head method is
+     * called and the array is empty, regardless of stated capacity
+     *
+     * @throws QueueUnderflowException
+     */
+    @Test(expected = QueueUnderflowException.class)
+
+    public void testHeadWhenEmpty() throws QueueUnderflowException {
+        unsorted = new UnsortedArrayPriorityQueue(0);
+        unsorted.head();
+        unsorted = new UnsortedArrayPriorityQueue(50);
+        unsorted.head();
     }
 
     /**
@@ -130,7 +172,7 @@ public class UnsortedArrayPriorityQueueTest {
      * Test of remove method, of class UnsortedArrayPriorityQueue.
      */
     @Test
-    public void testRemove() throws Exception {
+    public void testRemove() {
 
     }
 
@@ -205,7 +247,12 @@ public class UnsortedArrayPriorityQueueTest {
 
     }
 
-    public void addHelper() throws QueueOverflowException {
+    /**
+     * This is a helper method used to populate the array with 5 people
+     *
+     * @throws QueueOverflowException
+     */
+    private void addHelper() throws QueueOverflowException {
         //new instance with space for 5 people
         unsorted = new UnsortedArrayPriorityQueue(5);
         //Add 5 people to the array
