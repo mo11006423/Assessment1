@@ -170,9 +170,52 @@ public class UnsortedArrayPriorityQueueTest {
 
     /**
      * Test of remove method, of class UnsortedArrayPriorityQueue.
+     *
+     * @throws queuemanager.QueueOverflowException
+     * @throws queuemanager.QueueUnderflowException
      */
     @Test
-    public void testRemove() {
+    public void testRemove() throws QueueOverflowException, QueueUnderflowException {
+        //Populate the unsorted array
+        addHelper();
+        assertEquals("(Person 4, 5)", unsorted.head().toString());
+        unsorted.remove();
+        assertEquals("(Person 5, 4)", unsorted.head().toString());
+        unsorted.remove();
+        assertEquals("(Person 2, 3)", unsorted.head().toString());
+        unsorted.remove();
+        assertEquals("(Person 1, 2)", unsorted.head().toString());
+        unsorted.remove();
+        assertEquals("(Person 3, 1)", unsorted.head().toString());
+        unsorted.remove();
+        for (Object storage : unsorted.getStorage()) {
+            assertNull(storage);
+        }
+        //Add a few values back in
+        unsorted.add("New person", 1);
+        unsorted.add("New person 2", 45);
+        assertEquals("(New person 2, 45)", unsorted.head().toString());
+        unsorted.remove();
+        assertEquals("(New person, 1)", unsorted.head().toString());
+        unsorted.remove();
+        //Check removed again
+        for (Object storage : unsorted.getStorage()) {
+            assertNull(storage);
+        }
+    }
+
+    @Test(expected = QueueUnderflowException.class)
+    public void testUnderflowRemove() throws QueueUnderflowException, QueueOverflowException {
+        UnsortedArrayPriorityQueue newUnsorted = new UnsortedArrayPriorityQueue(54);
+        newUnsorted.remove();
+        //Populate to check again
+        addHelper();
+        //Remove all
+        for (Object storage : unsorted.getStorage()) {
+            unsorted.remove();
+        }
+        //Try to remove beyond limit
+        unsorted.remove();
 
     }
 
@@ -261,7 +304,7 @@ public class UnsortedArrayPriorityQueueTest {
         unsorted.add(new Person("Person 3"), 1);
         unsorted.add(new Person("Person 4"), 5);
         unsorted.add(new Person("Person 5"), 4);
-        System.out.println("Below is a list of stored people names");
+
     }
 
 }

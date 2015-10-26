@@ -57,6 +57,7 @@ public class UnsortedArrayPriorityQueue<T> implements PriorityQueue<T> {
             tail--;
         } else {
             storage[headIndex()] = storage[tail];
+            storage[tail] = null;
             tail--;
         }
     }
