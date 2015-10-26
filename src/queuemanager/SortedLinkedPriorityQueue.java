@@ -13,7 +13,7 @@ import java.util.LinkedList;
  */
 public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
 
-    private LinkedList<T> storage = new LinkedList<>();
+    private LinkedList<Wrapper> storage = new LinkedList<>();
 
     public SortedLinkedPriorityQueue() {
     }
@@ -38,8 +38,7 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public boolean isEmpty() {
-        //To be implemented
-        return false;
+        return storage.size() == 0;
     }
 
     @Override
