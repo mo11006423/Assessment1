@@ -26,8 +26,20 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public void add(T item, int priority) {
-        //To be implemented
-
+        if (storage.size() == 0) {
+            storage.add(new Wrapper<>(item, priority));
+        } else if (priority > (storage.get(0).getPriority())) {
+            storage.add(0, new Wrapper<>(item, priority));
+        } else if (priority < (storage.getLast().getPriority())) {
+            storage.addLast(new Wrapper<>(item, priority));
+        } else {
+            for (int i = 0; i < storage.size(); i++) {
+                if (((storage.get(i).getPriority()) - priority) < 0) {
+                    storage.add(i, new Wrapper<>(item, priority));
+                    break;
+                }
+            }
+        }
     }
 
     @Override
@@ -43,8 +55,7 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public String toString() {
-        //To be implemented
-        return null;
+        return storage.toString();
     }
 
 }

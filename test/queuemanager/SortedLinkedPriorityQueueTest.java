@@ -31,7 +31,18 @@ public class SortedLinkedPriorityQueueTest {
      */
     @Test
     public void testAdd() {
-
+        Person person1 = new Person("Jamie");
+        Person person2 = new Person("Andrew");
+        sorted.add(person1, 1);
+        System.out.println(sorted.toString());
+        sorted.add(person2, 3);
+        System.out.println(sorted.toString());
+        sorted.add(new Person("Mum"), 5);
+        System.out.println(sorted.toString());
+        sorted.add(new Person("Dad"), -1);
+        System.out.println(sorted.toString());
+        sorted.add(new Person("Rocky"), 2);
+        System.out.println(sorted.toString());
     }
 
     /**
