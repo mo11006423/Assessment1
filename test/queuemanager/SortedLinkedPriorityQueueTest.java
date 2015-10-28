@@ -14,8 +14,6 @@ import static org.junit.Assert.*;
  */
 public class SortedLinkedPriorityQueueTest {
 
-    SortedLinkedPriorityQueue sorted = new SortedLinkedPriorityQueue();
-
     public SortedLinkedPriorityQueueTest() {
     }
 
@@ -28,21 +26,38 @@ public class SortedLinkedPriorityQueueTest {
 
     /**
      * Test of add method, of class SortedLinkedPriorityQueue.
+     *
+     * This method test that when items are added already in the correct order
+     * of priority that the linked list stores them in that order. It test by
+     * adding 5 people individually with priorities from 5-1 then checks that
+     * the item stored at the indexes 0-4 are the highest to lowest priorities
+     *
      */
     @Test
-    public void testAdd() {
-        Person person1 = new Person("Jamie");
-        Person person2 = new Person("Andrew");
-        sorted.add(person1, 1);
-        System.out.println(sorted.toString());
-        sorted.add(person2, 3);
-        System.out.println(sorted.toString());
-        sorted.add(new Person("Mum"), 5);
-        System.out.println(sorted.toString());
-        sorted.add(new Person("Dad"), -1);
-        System.out.println(sorted.toString());
-        sorted.add(new Person("Rocky"), 2);
-        System.out.println(sorted.toString());
+    public void testAddCorrectOrder() {
+
+    }
+
+    /**
+     * This method tests that items added in reverse order (priority 1 through
+     * to 5) are pushed back along the queue and so the highest priority is
+     * always first, at index 0. IN this scenario prioirty 5 will finish at the
+     * top (head) of the queue
+     */
+    @Test
+    public void testAddReverseOrder() {
+
+    }
+
+    /**
+     * This method is used to test that when items of random priorities are
+     * added that they are in the correct place.Highest number which represents
+     * the highest priority is at the head (index 0) and lowest number (lowest
+     * priority) is at the tail
+     */
+    @Test
+    public void testRandomOrder() {
+
     }
 
     /**
@@ -57,7 +72,6 @@ public class SortedLinkedPriorityQueueTest {
      */
     @Test
     public void testIsEmpty() {
-        assertTrue(sorted.isEmpty());
     }
 
     /**
