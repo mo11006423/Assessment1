@@ -11,13 +11,24 @@ package queuemanager;
  */
 public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
 
+    private Node<T> head; //Node at the top (highest priority)
+    private Node<T> previous; //previous node
+    private Node<T> focus; //current
+    private int size;
+
     public SortedLinkedPriorityQueue() {
+        head = null;
+        previous = null;
+        focus = null;
+        size = 0;
     }
 
     @Override
-    public T head() {
-        //To be implemented
-        return null;
+    public T head() throws QueueUnderflowException {
+        if (isEmpty()) {
+            throw new QueueUnderflowException();
+        }
+        return head.getItem();
     }
 
     @Override
@@ -34,8 +45,7 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public boolean isEmpty() {
-        //To be implemented
-        return false;
+        return head == null;
     }
 
     @Override

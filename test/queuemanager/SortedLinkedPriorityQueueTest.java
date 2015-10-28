@@ -13,6 +13,8 @@ import static org.junit.Assert.*;
  * @author Jamie Simpson
  */
 public class SortedLinkedPriorityQueueTest {
+    
+    SortedLinkedPriorityQueue sorted = new SortedLinkedPriorityQueue();
 
     public SortedLinkedPriorityQueueTest() {
     }
@@ -34,7 +36,9 @@ public class SortedLinkedPriorityQueueTest {
      *
      */
     @Test
-    public void testAddCorrectOrder() {
+    public void testAddCorrectOrder() throws QueueUnderflowException {
+        Person person1 = new Person("Jamie");
+        Person person2 = new Person("Rachel");
 
     }
 
