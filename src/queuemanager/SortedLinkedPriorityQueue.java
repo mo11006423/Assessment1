@@ -14,6 +14,7 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
     private Node<T> head; //Node at the top (highest priority)
     private Node<T> previous; //previous node
     private Node<T> focus; //current
+    private Node<T> next;
     private int size;
 
     public SortedLinkedPriorityQueue() {
@@ -33,7 +34,21 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public void add(T item, int priority) {
-       //TO be implemented
+        if (isEmpty()) {
+            head = new Node<>(item, priority, null, null);
+        } else if (size == 1 && priority > head.getPriority()) {
+            previous = head;
+            head = new Node<>(item, priority, previous, null);
+        } else if (size == 1 && priority < head.getPriority()) {
+            previous = head;
+            head.setNext(new Node<>(item, priority, null, previous));
+        } else if (priority > head.getPriority()) {
+           next = head.getNext();
+            previous = head;
+            head = new Node<>(item, priority, previous, null);
+            previous.setNext(next);
+        }
+        size++;
     }
 
     @Override
@@ -49,17 +64,13 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public String toString() {
-        String rtnVal = "";
-        Node node = head;
-        int i = 1;
-        while (size >= i) {
-            rtnVal = rtnVal + node.getItem().toString() + ", ";
-            node = node.getNext();
-            i++;
+        focus = head;
+        String output = "";
+        while (focus != null) {
+            output += focus.getItem().toString() + ", ";
+            focus = focus.getNext();
         }
-
-        return rtnVal;
-
+        return output;
     }
 
     public int size() {
@@ -74,5 +85,4 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
             focus = focus.getNext();
         }
     }
-
 }

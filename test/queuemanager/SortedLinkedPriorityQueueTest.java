@@ -40,11 +40,10 @@ public class SortedLinkedPriorityQueueTest {
         Person person1 = new Person("Jamie");
         Person person2 = new Person("Rachel");
         Person person3 = new Person("Miss her so much");
-        sorted.add(person1, 2);
-        System.out.println(sorted.toString());
-        sorted.add(person2, 4);
-        System.out.println(sorted.toString());
-        sorted.add(person3, 5);
+        sorted.add(person1, 1);
+        sorted.add(person2, 2);
+        sorted.add(person3, 3);
+        sorted.add(new Person("Louis"), 7);
         System.out.println(sorted.toString());
 
     }

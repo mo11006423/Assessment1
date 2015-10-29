@@ -16,11 +16,21 @@ public class Node<T> {
     private T item;
     private int priority;
     private Node<T> next;
+    private Node<T> previous;
 
-    public Node(T item, int priority, Node<T> next) {
+    public Node(T item, int priority, Node<T> next, Node<T> previous) {
         this.item = item;
         this.priority = priority;
         this.next = next;
+        this.previous = previous;
+    }
+
+    public Node<T> getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(Node<T> previous) {
+        this.previous = previous;
     }
 
     public T getItem() {
@@ -33,6 +43,14 @@ public class Node<T> {
 
     public Node<T> getNext() {
         return next;
+    }
+
+    public void setItem(T item) {
+        this.item = item;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     public void setNext(Node<T> next) {
