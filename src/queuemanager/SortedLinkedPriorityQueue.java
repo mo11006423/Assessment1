@@ -33,8 +33,7 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public void add(T item, int priority) {
-        //To be implemented
-
+       //TO be implemented
     }
 
     @Override
@@ -45,14 +44,35 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public boolean isEmpty() {
-        return head == null;
+        return size == 0;
     }
 
     @Override
     public String toString() {
-        //To be implemented
-        return null;
+        String rtnVal = "";
+        Node node = head;
+        int i = 1;
+        while (size >= i) {
+            rtnVal = rtnVal + node.getItem().toString() + ", ";
+            node = node.getNext();
+            i++;
+        }
 
+        return rtnVal;
+
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public void setFocus(int index) {
+        focus = head;
+        previous = null;
+        for (int i = 1; i < index; i++) {
+            previous = focus;
+            focus = focus.getNext();
+        }
     }
 
 }

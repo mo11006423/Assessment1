@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  * @author Jamie Simpson
  */
 public class SortedLinkedPriorityQueueTest {
-    
+
     SortedLinkedPriorityQueue sorted = new SortedLinkedPriorityQueue();
 
     public SortedLinkedPriorityQueueTest() {
@@ -39,6 +39,13 @@ public class SortedLinkedPriorityQueueTest {
     public void testAddCorrectOrder() throws QueueUnderflowException {
         Person person1 = new Person("Jamie");
         Person person2 = new Person("Rachel");
+        Person person3 = new Person("Miss her so much");
+        sorted.add(person1, 2);
+        System.out.println(sorted.toString());
+        sorted.add(person2, 4);
+        System.out.println(sorted.toString());
+        sorted.add(person3, 5);
+        System.out.println(sorted.toString());
 
     }
 

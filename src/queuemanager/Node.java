@@ -35,6 +35,10 @@ public class Node<T> {
         return next;
     }
 
+    public void setNext(Node<T> next) {
+        this.next = next;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
