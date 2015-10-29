@@ -41,12 +41,15 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
             head = new Node<>(item, priority, previous, null);
         } else if (size == 1 && priority < head.getPriority()) {
             previous = head;
-            head.setNext(new Node<>(item, priority, null, previous));
-        } else if (priority > head.getPriority()) {
-           next = head.getNext();
+            head.setNext((new Node<>(item, priority, null, previous)));
+        } else if (size > 1 && priority > head.getPriority()) {
+            next = head.getNext();
             previous = head;
             head = new Node<>(item, priority, previous, null);
             previous.setNext(next);
+            previous.setPrevious(head);
+        } else if (size > 1 && priority < head.getPriority()) {
+
         }
         size++;
     }

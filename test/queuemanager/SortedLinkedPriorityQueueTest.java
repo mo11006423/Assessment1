@@ -34,16 +34,17 @@ public class SortedLinkedPriorityQueueTest {
      * adding 5 people individually with priorities from 5-1 then checks that
      * the item stored at the indexes 0-4 are the highest to lowest priorities
      *
+     * @throws queuemanager.QueueUnderflowException
      */
     @Test
     public void testAddCorrectOrder() throws QueueUnderflowException {
         Person person1 = new Person("Jamie");
         Person person2 = new Person("Rachel");
-        Person person3 = new Person("Miss her so much");
+        Person person3 = new Person("Georgie");
         sorted.add(person1, 1);
         sorted.add(person2, 2);
-        sorted.add(person3, 3);
-        sorted.add(new Person("Louis"), 7);
+  //      sorted.add(person3, -2);
+        //    sorted.add(new Person("Louis"), 1);
         System.out.println(sorted.toString());
 
     }
