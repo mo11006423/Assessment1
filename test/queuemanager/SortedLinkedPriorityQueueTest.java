@@ -15,15 +15,40 @@ import static org.junit.Assert.*;
 public class SortedLinkedPriorityQueueTest {
 
     SortedLinkedPriorityQueue sorted = new SortedLinkedPriorityQueue();
+    Person person1 = new Person("Jamie");
+    Person person2 = new Person("Rachel");
+    Person person3 = new Person("Georgie");
 
     public SortedLinkedPriorityQueueTest() {
     }
 
     /**
-     * Test of head method, of class SortedLinkedPriorityQueue.
+     * Test of head method, of class SortedLinkedPriorityQueue. Although this is
+     * essentially tested through the add methods as well, that is to show that
+     * add is adding in the correct order. This will focus on testing the when
+     * an item is added with lower priority it is not the head and higher
+     * priority becomes the head
      */
     @Test
-    public void testHead() {
+    public void testHead() throws QueueUnderflowException {
+        sorted.add(person1, 2);
+        assertEquals(sorted.head().toString(), "Jamie");
+        sorted.add(person2, 1);
+        assertEquals(sorted.head().toString(), "Jamie");
+        sorted.add(person3, 3);
+        assertEquals(sorted.head().toString(), "Georgie");
+        sorted.add(new Person("Thomas"), 4);
+        assertEquals(sorted.head().toString(), "Thomas");
+    }
+
+    /**
+     * Tests that an exception is thrown when the head is empty
+     *
+     * @throws QueueUnderflowException
+     */
+    @Test(expected = QueueUnderflowException.class)
+    public void testHeadUnderflow() throws QueueUnderflowException {
+        sorted.head();
     }
 
     /**
@@ -31,34 +56,50 @@ public class SortedLinkedPriorityQueueTest {
      *
      * This method test that when items are added already in the correct order
      * of priority that the linked list stores them in that order. It test by
-     * adding 5 people individually with priorities from 5-1 then checks that
+     * adding 4 people individually with priorities from 4-1 then checks that
      * the item stored at the indexes 0-4 are the highest to lowest priorities
      *
      * @throws queuemanager.QueueUnderflowException
      */
     @Test
     public void testAddCorrectOrder() throws QueueUnderflowException {
-        Person person1 = new Person("Jamie");
-        Person person2 = new Person("Rachel");
-        Person person3 = new Person("Georgie");
-        sorted.add(person1, 5);
-        sorted.add(person2, 2);
-        sorted.add(person3, 4);
-        sorted.add(new Person("Louis"), 3);
-        System.out.println(sorted.toString());
-        //    sorted.setFocus(2);
-
+        assertTrue(sorted.isEmpty());
+        sorted.add(person1, 4);
+        assertEquals(sorted.toString(), ("Jamie"));
+        assertEquals(sorted.head().toString(), "Jamie");
+        sorted.add(person2, 3);
+        assertEquals(sorted.toString(), "Jamie, Rachel");
+        assertEquals(sorted.head().toString(), "Jamie");
+        sorted.add(person3, 2);
+        assertEquals(sorted.toString(), "Jamie, Rachel, Georgie");
+        assertEquals(sorted.head().toString(), "Jamie");
+        sorted.add(new Person("Thomas"), 1);
+        assertEquals(sorted.toString(), "Jamie, Rachel, Georgie, Thomas");
+        assertEquals(sorted.head().toString(), "Jamie");
+        //  System.out.println(sorted.toString());
     }
 
     /**
      * This method tests that items added in reverse order (priority 1 through
-     * to 5) are pushed back along the queue and so the highest priority is
-     * always first, at index 0. IN this scenario prioirty 5 will finish at the
+     * to 4) are pushed back along the queue and so the highest priority is
+     * always first, at index 0. In this scenario priority 4 will finish at the
      * top (head) of the queue
      */
     @Test
-    public void testAddReverseOrder() {
-
+    public void testAddReverseOrder() throws QueueUnderflowException {
+        assertTrue(sorted.isEmpty());
+        sorted.add(person1, 1);
+        assertEquals(sorted.toString(), ("Jamie"));
+        assertEquals(sorted.head().toString(), "Jamie");
+        sorted.add(person2, 2);
+        assertEquals(sorted.toString(), "Rachel, Jamie");
+        assertEquals(sorted.head().toString(), "Rachel");
+        sorted.add(person3, 3);
+        assertEquals(sorted.toString(), "Georgie, Rachel, Jamie");
+        assertEquals(sorted.head().toString(), "Georgie");
+        sorted.add(new Person("Thomas"), 4);
+        assertEquals(sorted.toString(), "Thomas, Georgie, Rachel, Jamie");
+        assertEquals(sorted.head().toString(), "Thomas");
     }
 
     /**
@@ -68,7 +109,27 @@ public class SortedLinkedPriorityQueueTest {
      * priority) is at the tail
      */
     @Test
-    public void testRandomOrder() {
+    public void testRandomOrder() throws QueueUnderflowException {
+        assertTrue(sorted.isEmpty());
+        sorted.add(person1, 2);
+        assertEquals(sorted.toString(), "Jamie");
+        assertEquals(sorted.head().toString(), "Jamie");
+        sorted.add(person2, 1);
+        assertEquals(sorted.toString(), "Jamie, Rachel");
+        assertEquals(sorted.head().toString(), "Jamie");
+        sorted.add(person3, 5);
+        assertEquals(sorted.toString(), "Georgie, Jamie, Rachel");
+        assertEquals(sorted.head().toString(), "Georgie");
+        sorted.add(new Person("Thomas"), 6);
+        assertEquals(sorted.toString(), "Thomas, Georgie, Jamie, Rachel");
+        assertEquals(sorted.head().toString(), "Thomas");
+        sorted.add(new Person("Martin"), 4);
+        assertEquals(sorted.toString(), "Thomas, Georgie, Martin, Jamie, Rachel");
+        assertEquals(sorted.head().toString(), "Thomas");
+        sorted.add(new Person("Ryan"), 3);
+        assertEquals(sorted.toString(), "Thomas, Georgie, Martin, Ryan, Jamie, Rachel");
+        assertEquals(sorted.head().toString(), "Thomas");
+        //  System.out.println(sorted.toString());
 
     }
 

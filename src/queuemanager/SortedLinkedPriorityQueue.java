@@ -88,9 +88,19 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
     public String toString() {
         focus = head;
         String output = "";
+        int counter = 0;
         while (focus != null) {
-            output += focus.getItem().toString() + ", ";
-            focus = focus.getNext();
+            counter++;
+            if (size == 1) {
+                output += focus.getItem().toString();
+                break;
+            } else if (counter == size) {
+                output += focus.getItem().toString();
+                break;
+            } else {
+                output += focus.getItem().toString() + ", ";
+                focus = focus.getNext();
+            }
         }
         return output;
     }
