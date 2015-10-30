@@ -28,6 +28,8 @@ public class SortedLinkedPriorityQueueTest {
      * add is adding in the correct order. This will focus on testing the when
      * an item is added with lower priority it is not the head and higher
      * priority becomes the head
+     *
+     * @throws queuemanager.QueueUnderflowException
      */
     @Test
     public void testHead() throws QueueUnderflowException {
@@ -84,6 +86,8 @@ public class SortedLinkedPriorityQueueTest {
      * to 4) are pushed back along the queue and so the highest priority is
      * always first, at index 0. In this scenario priority 4 will finish at the
      * top (head) of the queue
+     *
+     * @throws queuemanager.QueueUnderflowException
      */
     @Test
     public void testAddReverseOrder() throws QueueUnderflowException {
@@ -107,6 +111,8 @@ public class SortedLinkedPriorityQueueTest {
      * added that they are in the correct place.Highest number which represents
      * the highest priority is at the head (index 0) and lowest number (lowest
      * priority) is at the tail
+     *
+     * @throws queuemanager.QueueUnderflowException
      */
     @Test
     public void testRandomOrder() throws QueueUnderflowException {
@@ -134,10 +140,46 @@ public class SortedLinkedPriorityQueueTest {
     }
 
     /**
-     * Test of remove method, of class SortedLinkedPriorityQueue.
+     * Test of remove method, of class SortedLinkedPriorityQueue. Adds 3 items
+     * to the queue then removes them individually making sure the one with the
+     * highest priority is removed regardless of the orer they were added.
+     *
+     * @throws queuemanager.QueueUnderflowException
      */
     @Test
-    public void testRemove() {
+    public void testRemove() throws QueueUnderflowException {
+        sorted.add(person1, 3);
+        sorted.add(person2, 2);
+        sorted.add(person3, 1);
+        sorted.remove();
+        assertEquals(sorted.head().toString(), "Rachel");
+        sorted.remove();
+        assertEquals(sorted.head().toString(), "Georgie");
+        sorted.remove();
+        assertEquals(sorted.toString(), "");
+        //Reverse test
+        sorted.add(person1, 1);
+        sorted.add(person2, 2);
+        sorted.add(person3, 3);
+        sorted.remove();
+        assertEquals(sorted.head().toString(), "Rachel");
+        sorted.remove();
+        assertEquals(sorted.head().toString(), "Jamie");
+        sorted.remove();
+        assertEquals(sorted.toString(), "");
+
+    }
+
+    /**
+     * Tests that an underflow exception is thrown when you try to remove an
+     * item when nothing has been added.
+     *
+     * @throws QueueUnderflowException
+     */
+    @Test(expected = QueueUnderflowException.class)
+    public void testRemoveException() throws QueueUnderflowException {
+        sorted.remove();
+
     }
 
     /**

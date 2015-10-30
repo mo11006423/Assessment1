@@ -74,9 +74,15 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
     }
 
     @Override
-    public void remove() {
-        //To be implemented
-
+    public void remove() throws QueueUnderflowException {
+        if (isEmpty()) {
+            throw new QueueUnderflowException();
+        } else if (size == 1) {
+            head = null;
+        } else {
+            head = head.getNext();
+        }
+        size--;
     }
 
     @Override
@@ -109,13 +115,10 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         return size;
     }
 
-    public void setFocus(int index) {
+    private void setFocus(int index) {
         focus = head;
         for (int i = 0; i < index - 1; i++) {
             focus = focus.getNext();
         }
-        //      System.out.println("Focus item: " + focus.getItem());
-//        System.out.println("Focus Next: " + focus.getNext().getItem());
-        //    System.out.println("Focus Previous" + focus.getPrevious().getItem());
     }
 }
