@@ -11,7 +11,7 @@ package queuemanager;
  * length why it has to be this way, but note that Eiffel allows it because it
  * was done right from the start, rather than having generics tacked on as an
  * afterthought and limited by issues of backward compatibility. Hmph!
- * 
+ *
  * @param <T>
  */
 public class SortedArrayPriorityQueue<T> implements PriorityQueue<T> {

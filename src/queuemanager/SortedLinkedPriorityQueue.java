@@ -36,21 +36,40 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
     public void add(T item, int priority) {
         if (isEmpty()) {
             head = new Node<>(item, priority, null, null);
-        } else if (size == 1 && priority > head.getPriority()) {
-            previous = head;
-            head = new Node<>(item, priority, previous, null);
-        } else if (size == 1 && priority < head.getPriority()) {
-            previous = head;
-            head.setNext((new Node<>(item, priority, null, previous)));
-        } else if (size > 1 && priority > head.getPriority()) {
-            next = head.getNext();
-            previous = head;
-            head = new Node<>(item, priority, previous, null);
-            previous.setNext(next);
-            previous.setPrevious(head);
-        } else if (size > 1 && priority < head.getPriority()) {
-
+        } else if (size == 1) {
+            if (priority > head.getPriority()) {
+                next = head;
+                head = new Node<>(item, priority, next, null);
+                next.setPrevious(head);
+            } else {
+                next = new Node<>(item, priority, null, head);
+                head.setNext(next);
+            }
+        } else if (size > 1) {
+            setFocus(size);
+            if (priority < focus.getPriority()) {
+                focus.setNext(new Node<>(item, priority, null, focus));
+            } else if (priority > head.getPriority()) {
+                next = head;
+                head = new Node<>(item, priority, next, null);
+                next.setPrevious(head);
+            } else {
+                focus = head;
+                for (int i = 0; i < size; i++) {
+                    if (priority > focus.getPriority()) {
+                        next = focus;
+                        previous = focus.getPrevious();
+                        Node<T> newItem = new Node<>(item, priority, next, previous);
+                        previous.setNext(newItem);
+                        next.setPrevious(newItem);
+                        break;
+                    } else {
+                        focus = focus.getNext();
+                    }
+                }
+            }
         }
+
         size++;
     }
 
@@ -82,10 +101,11 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
 
     public void setFocus(int index) {
         focus = head;
-        previous = null;
-        for (int i = 1; i < index; i++) {
-            previous = focus;
+        for (int i = 0; i < index - 1; i++) {
             focus = focus.getNext();
         }
+        //      System.out.println("Focus item: " + focus.getItem());
+//        System.out.println("Focus Next: " + focus.getNext().getItem());
+        //    System.out.println("Focus Previous" + focus.getPrevious().getItem());
     }
 }
