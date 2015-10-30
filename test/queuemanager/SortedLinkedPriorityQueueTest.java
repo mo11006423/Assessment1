@@ -141,17 +141,37 @@ public class SortedLinkedPriorityQueueTest {
     }
 
     /**
-     * Test of isEmpty method, of class SortedLinkedPriorityQueue.
+     * Test of isEmpty method, of class SortedLinkedPriorityQueue.Tests that
+     * True us returned when nothing has been added, then adds an item and tests
+     * that false is returned.
      */
     @Test
     public void testIsEmpty() {
+        assertTrue(sorted.isEmpty());
+        sorted.add(person1, 2);
+        assertFalse(sorted.isEmpty());
     }
 
     /**
-     * Test of toString method, of class SortedLinkedPriorityQueue.
+     * Test of toString method, of class SortedLinkedPriorityQueue. Tests that
+     * when an item is added and the list is outputted as a string that all the
+     * elements are there in the correct order.
      */
     @Test
     public void testToString() {
+        assertEquals(sorted.toString(), "");
+        sorted.add(person1, 4);
+        assertEquals(sorted.toString(), "Jamie");
+        sorted.add(person2, 5);
+        assertEquals(sorted.toString(), "Rachel, Jamie");
+        sorted.add(person3, 6);
+        assertEquals(sorted.toString(), "Georgie, Rachel, Jamie");
+        sorted.add(new Person("Thomas"), 3);
+        assertEquals(sorted.toString(), "Georgie, Rachel, Jamie, Thomas");
+        sorted.add(new Person("Martin"), 2);
+        assertEquals(sorted.toString(), "Georgie, Rachel, Jamie, Thomas, Martin");
+        sorted.add(new Person("Ryan"), 1);
+        assertEquals(sorted.toString(), "Georgie, Rachel, Jamie, Thomas, Martin, Ryan");
     }
 
 }
