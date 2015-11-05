@@ -24,6 +24,8 @@ public class UnsortedLinkedPriorityQueueTest {
 
     /**
      * Test of add method, of class UnsortedLinkedPriorityQueue.
+     *
+     * @throws java.lang.Exception
      */
     @Test
     public void testAdd() throws Exception {
@@ -31,6 +33,7 @@ public class UnsortedLinkedPriorityQueueTest {
         unsorted.add(person2, 3);
         unsorted.add(person3, 1);
         System.out.println(unsorted.toString());
+        System.out.println(unsorted.head());
 
     }
 

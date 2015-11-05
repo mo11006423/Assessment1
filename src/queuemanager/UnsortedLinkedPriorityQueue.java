@@ -39,8 +39,19 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public T head() throws QueueUnderflowException {
-        //To be implemented
-        return null;
+        if (size == 1) {
+            return head.getItem();
+        } else {
+            focus = first;
+            while (focus != null) {
+                if (focus.getPriority() > head.getPriority()) {
+                    head = focus;
+                } else {
+                    focus = focus.getNext();
+                }
+            }
+        }
+        return head.getItem();
     }
 
     @Override
