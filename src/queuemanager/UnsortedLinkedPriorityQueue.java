@@ -56,8 +56,27 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public void remove() throws QueueUnderflowException {
-        //To be implemented
+        if (isEmpty()) {
+            throw new QueueUnderflowException();
+        } else if (size == 1) {
+            first = null;
+        } else {
+            head();
+            if (head == first) {
+                first = head.getNext();
+                head.getNext().setPrevious(null);
+            } else {
+                if (head.getNext() != null && head.getPrevious() != null) {
+                    head.getNext().setPrevious(head.getPrevious());
+                    head.getPrevious().setNext(head.getNext());
+                } else if (head.getNext() == null && head.getPrevious() != null) {
+                    head.getPrevious().setNext(null);
+                }
+            }
 
+        }
+
+        size--;
     }
 
     @Override
@@ -67,11 +86,11 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public String toString() {
-        focus = first;
+        setFocus(size);
         String output = "";
-        int counter = 0;
+        int counter = size;
         while (focus != null) {
-            counter++;
+            counter--;
             if (size == 1) {
                 output = focus.getItem().toString();
                 break;
@@ -80,7 +99,7 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
                 break;
             } else {
                 output += focus.getItem().toString() + ", ";
-                focus = focus.getNext();
+                focus = focus.getPrevious();
             }
         }
         return output;

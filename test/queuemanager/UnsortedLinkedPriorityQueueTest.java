@@ -30,10 +30,12 @@ public class UnsortedLinkedPriorityQueueTest {
     @Test
     public void testAdd() throws Exception {
         unsorted.add(person1, 2);
-        unsorted.add(person2, 3);
-        unsorted.add(person3, 1);
-        System.out.println(unsorted.toString());
-        System.out.println(unsorted.head());
+        unsorted.add(person2, 1);
+        unsorted.add(person3, 3);
+        System.out.println("All people " + unsorted.toString());
+        System.out.println("Current head " + unsorted.head());
+        unsorted.remove();
+        System.out.println("After 1 remove " + unsorted.toString());
 
     }
 
