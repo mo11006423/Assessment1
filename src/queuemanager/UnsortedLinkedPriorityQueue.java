@@ -102,6 +102,7 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
                 focus = focus.getPrevious();
             }
         }
+
         return output;
     }
 
