@@ -12,7 +12,7 @@ package queuemanager;
  */
 public class HeapPriorityQueue<T> implements PriorityQueue<T> {
 
-    private int size;
+    private final int size;
     private final Object[] storage;
     private int tailIndex;
 
@@ -24,7 +24,12 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
-        //To be implemented
+        if (isEmpty()) {
+            storage[0] = new Wrapper<>(item, priority);
+        } else {
+
+        }
+        tailIndex++;
     }
 
     @Override
@@ -42,6 +47,23 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
     @Override
     public boolean isEmpty() {
         return tailIndex == -1;
+    }
+
+    public void swap(int index1, int index2) {
+        storage[index1] = storage[index2];
+    }
+
+    @Override
+    public String toString() {
+        String result = "[";
+        for (int i = 0; i <= tailIndex; i++) {
+            if (i > 0) {
+                result = result + ", ";
+            }
+            result = result + storage[i];
+        }
+        result = result + "]";
+        return result;
     }
 
 }
