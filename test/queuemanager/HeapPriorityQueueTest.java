@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  */
 public class HeapPriorityQueueTest {
 
-    HeapPriorityQueue heap = new HeapPriorityQueue(3);
+    HeapPriorityQueue heap = new HeapPriorityQueue(5);
     Person person1 = new Person("Jamie");
     Person person2 = new Person("Andrew");
     Person person3 = new Person("Rachel");
@@ -27,11 +27,14 @@ public class HeapPriorityQueueTest {
      */
     @Test
     public void testAdd() throws Exception {
-        heap.add(person1, 3);
-        heap.add(person2, 5);
-        heap.add(person3, 7);
-    //    heap.add(person4, 8);
+        heap.add(person1, 1);
+        heap.add(person2, 2);
+        heap.add(person3, 3);
+        heap.add(person4, 4);
+      //  heap.add(person5, 5);
+        //     heap.add(person6, 99);
         System.out.println(heap.toString());
+        System.out.println(heap.tailIndex);
 
     }
 

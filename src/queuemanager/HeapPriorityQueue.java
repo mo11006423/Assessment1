@@ -12,10 +12,7 @@ package queuemanager;
  */
 public class HeapPriorityQueue<T> implements PriorityQueue<T> {
 
-    private int capacity, tailIndex;
-    private HeapNode<T> leftChild;
-    private HeapNode<T> rightChild;
-    private HeapNode<T> head;
+    public int capacity, tailIndex;
     private Object[] storage;
 
     public HeapPriorityQueue(int capacity) {
@@ -27,16 +24,39 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
         if (isEmpty()) {
-            storage[0] = new HeapNode<>(item, priority, null, null);
-            head = ((HeapNode<T>) storage[0]);
-        } else if (tailIndex == 0) {
-            if (head.getPriority() < priority) {
-                leftChild = head;
-                head = new HeapNode<>(item, priority, leftChild, null);
+            storage[0] = new Wrapper<>(item, priority);
+            tailIndex++;
+        } else if (tailIndex == 0 || tailIndex == 1) {
+            tailIndex++;
+            if (priority > ((Wrapper<T>) storage[0]).getPriority()) {
+                storage[tailIndex] = storage[0];
+                storage[0] = new Wrapper<>(item, priority);
+            } else {
+                storage[tailIndex] = new Wrapper<>(item, priority);
+            }
+        } else {
+            tailIndex++;
+            double tailAsDouble = tailIndex / 2.0 * 2.0;
+            if (tailIndex % 2 != 0) {
+                int parentIndex = (int) Math.round((tailAsDouble / 2) - 1);
+                if (priority > ((Wrapper<T>) storage[parentIndex]).getPriority()) {
+                    storage[tailIndex] = storage[parentIndex];
+                    storage[parentIndex] = new Wrapper<>(item, priority);
+                } else {
+                    storage[tailIndex] = new Wrapper<>(item, priority);
+                }
 
+            } else {
+                int parentIndex = (int) Math.round((tailAsDouble / 2) - 2);
+                if (priority > ((Wrapper<T>) storage[parentIndex]).getPriority()) {
+                    storage[tailIndex] = storage[parentIndex];
+                    storage[parentIndex] = new Wrapper<>(item, priority);
+                } else {
+                    storage[tailIndex] = new Wrapper<>(item, priority);
+                }
             }
         }
-        tailIndex++;
+
     }
 
     @Override
@@ -58,14 +78,12 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public String toString() {
-        String result = "[";
-        for (int i = 0; i <= tailIndex; i++) {
-            if (i > 0) {
-                result = result + ", ";
+        String result = "";
+        for (Object item : storage) {
+            if (item != null) {
+                result = result + " " + ((Wrapper<T>) item).getItem().toString() + " " + ((Wrapper<T>) item).getPriority();
             }
-            result = result + storage[i];
         }
-        result = result + "]";
         return result;
     }
 
