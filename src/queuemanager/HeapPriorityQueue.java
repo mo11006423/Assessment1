@@ -34,27 +34,28 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
             } else {
                 storage[tailIndex] = new Wrapper<>(item, priority);
             }
+        } else if (priority > ((Wrapper<T>) storage[0]).getPriority()) {
+            tailIndex++;
+            int i = tailIndex;
+            while (i > 0) {
+                storage[i] = storage[i - 1];
+                i--;
+            }
+            storage[0] = new Wrapper<>(item, priority);
         } else {
             tailIndex++;
             double tailAsDouble = tailIndex / 2.0 * 2.0;
-            if (tailIndex % 2 != 0) {
-                int parentIndex = (int) Math.round((tailAsDouble / 2) - 1);
-                if (priority > ((Wrapper<T>) storage[parentIndex]).getPriority()) {
-                    storage[tailIndex] = storage[parentIndex];
-                    storage[parentIndex] = new Wrapper<>(item, priority);
-                } else {
-                    storage[tailIndex] = new Wrapper<>(item, priority);
+            int parentIndex = (int) Math.round((tailAsDouble / 2) - 1);
+            if (priority > ((Wrapper<T>) storage[parentIndex]).getPriority()) {
+                while(priority > ((Wrapper<T>) storage[parentIndex]).getPriority()){
+                    
                 }
-
+               // storage[tailIndex] = storage[parentIndex];
+               // storage[parentIndex] = new Wrapper<>(item, priority);
             } else {
-                int parentIndex = (int) Math.round((tailAsDouble / 2) - 2);
-                if (priority > ((Wrapper<T>) storage[parentIndex]).getPriority()) {
-                    storage[tailIndex] = storage[parentIndex];
-                    storage[parentIndex] = new Wrapper<>(item, priority);
-                } else {
-                    storage[tailIndex] = new Wrapper<>(item, priority);
-                }
+                storage[tailIndex] = new Wrapper<>(item, priority);
             }
+
         }
 
     }
