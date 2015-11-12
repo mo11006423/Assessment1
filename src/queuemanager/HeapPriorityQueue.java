@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * This is the heap priority queue. In this class items added are in order where
+ * children do not have a higher priority than their parents.
  */
 package queuemanager;
 
@@ -26,6 +25,8 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
         if (isEmpty()) {
             storage[0] = new Wrapper<>(item, priority);
             tailIndex++;
+        } else if (tailIndex == capacity) {
+            throw new QueueOverflowException();
         } else if (tailIndex == 0 || tailIndex == 1) {
             tailIndex++;
             if (priority > ((Wrapper<T>) storage[0]).getPriority()) {
@@ -46,7 +47,7 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
             tailIndex++;
             double tailAsDouble = tailIndex / 2.0 * 2.0;
             int parentIndex = (int) Math.round((tailAsDouble / 2) - 1);
-      //      System.out.println("Parent " + parentIndex);
+            //      System.out.println("Parent " + parentIndex);
             //      System.out.println(((Wrapper<T>) storage[parentIndex]).getPriority());
             if (priority < ((Wrapper<T>) storage[parentIndex]).getPriority()) {
                 storage[tailIndex] = new Wrapper<>(item, priority);
@@ -57,6 +58,9 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
                     System.out.println("Parent index " + parentIndex);
                     parentIndex = (int) Math.round((parentIndex / 2.0) - 1.0);
                     i--;
+                }
+                if (parentIndex == 0) {
+                    parentIndex = 1;
                 }
                 System.out.println("Parent index " + parentIndex);
                 while (i > parentIndex) {
@@ -78,8 +82,22 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public void remove() throws QueueUnderflowException {
-        //To be implemented
-
+        if (isEmpty()) {
+            throw new QueueUnderflowException();
+        } else {
+            int i;
+            if (((Wrapper<T>) storage[1]).getPriority() < ((Wrapper<T>) storage[2]).getPriority()) {
+                storage[0] = storage[2];
+                i = 2;
+            } else {
+                i = 0;
+                while (i < tailIndex && storage[i] != null) {
+                    storage[i] = storage[i + 1];
+                    i++;
+                }
+            }
+            tailIndex--;
+        }
     }
 
     @Override
@@ -92,7 +110,7 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
         String result = "";
         for (Object item : storage) {
             if (item != null) {
-                result =  result + "[" + ((Wrapper<T>) item).getItem().toString() + ": " + ((Wrapper<T>) item).getPriority() + "], ";
+                result = result + "[" + ((Wrapper<T>) item).getItem().toString() + ": " + ((Wrapper<T>) item).getPriority() + "], ";
             }
         }
         return result;
