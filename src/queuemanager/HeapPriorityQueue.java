@@ -46,12 +46,24 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
             tailIndex++;
             double tailAsDouble = tailIndex / 2.0 * 2.0;
             int parentIndex = (int) Math.round((tailAsDouble / 2) - 1);
-            System.out.println("Parent " + parentIndex);
-            System.out.println(((Wrapper<T>) storage[parentIndex]).getPriority());
+      //      System.out.println("Parent " + parentIndex);
+            //      System.out.println(((Wrapper<T>) storage[parentIndex]).getPriority());
             if (priority < ((Wrapper<T>) storage[parentIndex]).getPriority()) {
                 storage[tailIndex] = new Wrapper<>(item, priority);
             } else {
-                
+                int i = tailIndex;
+                System.out.println("Parent index " + parentIndex);
+                while (parentIndex > 1 && priority > ((Wrapper<T>) storage[parentIndex]).getPriority()) {
+                    System.out.println("Parent index " + parentIndex);
+                    parentIndex = (int) Math.round((parentIndex / 2.0) - 1.0);
+                    i--;
+                }
+                System.out.println("Parent index " + parentIndex);
+                while (i > parentIndex) {
+                    storage[i] = storage[i - 1];
+                    i--;
+                }
+                storage[parentIndex] = new Wrapper<>(item, priority);
 
             }
 
@@ -61,8 +73,7 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
 
     @Override
     public T head() throws QueueUnderflowException {
-        //To be implemented
-        return null;
+        return (T) storage[0];
     }
 
     @Override
@@ -81,7 +92,7 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
         String result = "";
         for (Object item : storage) {
             if (item != null) {
-                result = result + " " + ((Wrapper<T>) item).getItem().toString() + " " + ((Wrapper<T>) item).getPriority();
+                result =  result + "[" + ((Wrapper<T>) item).getItem().toString() + ": " + ((Wrapper<T>) item).getPriority() + "], ";
             }
         }
         return result;

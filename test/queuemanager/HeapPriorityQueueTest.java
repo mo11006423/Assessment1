@@ -27,18 +27,18 @@ public class HeapPriorityQueueTest {
      */
     @Test
     public void testAdd() throws Exception {
-        heap.add(person1, 10);
-        heap.add(person2, 14);
-        heap.add(person3, 16);
-        heap.add(person4, 9);
-     //   heap.add(person5, 7);
-     //   heap.add(person6, 11);
-     //   heap.add(new Person("Testing2"), 8);
-       // heap.add(new Person("Testing2"), 15);
-        //heap.add(new Person("Testing2"), 5);
-        //heap.add(new Person("Testing2"), 6);
-        //heap.add(new Person("Testing2"), 4);
-        //heap.add(new Person("Testing2"),9);
+        heap.add(person1, 16);
+        heap.add(person2, 12);
+        heap.add(person3, 14);
+        heap.add(person4, 10);
+        heap.add(person5, 9);
+        heap.add(person6, 8);
+        heap.add(new Person("Testing1"), 7);
+        heap.add(new Person("Testing2"), 15);
+        heap.add(new Person("Testing2"), 5);
+        heap.add(new Person("Testing2"), 6);
+        heap.add(new Person("Testing2"), 4);
+        heap.add(new Person("Testing2"), 1);
         System.out.println(heap.toString());
         System.out.println(heap.tailIndex);
 
@@ -49,6 +49,7 @@ public class HeapPriorityQueueTest {
      */
     @Test
     public void testHead() throws Exception {
+
     }
 
     /**
