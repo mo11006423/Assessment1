@@ -30,15 +30,15 @@ public class HeapPriorityQueueTest {
         heap.add(person1, 10);
         heap.add(person2, 14);
         heap.add(person3, 16);
-        heap.add(person4, 12);
-        heap.add(person5, 7);
-        heap.add(person6, 11);
-        heap.add(new Person("Testing2"), 8);
-        heap.add(new Person("Testing2"), 15);
-        heap.add(new Person("Testing2"), 5);
-        heap.add(new Person("Testing2"), 6);
-        heap.add(new Person("Testing2"), 4);
-        heap.add(new Person("Testing2"),9);
+        heap.add(person4, 9);
+     //   heap.add(person5, 7);
+     //   heap.add(person6, 11);
+     //   heap.add(new Person("Testing2"), 8);
+       // heap.add(new Person("Testing2"), 15);
+        //heap.add(new Person("Testing2"), 5);
+        //heap.add(new Person("Testing2"), 6);
+        //heap.add(new Person("Testing2"), 4);
+        //heap.add(new Person("Testing2"),9);
         System.out.println(heap.toString());
         System.out.println(heap.tailIndex);
 

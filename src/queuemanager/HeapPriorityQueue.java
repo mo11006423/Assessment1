@@ -46,14 +46,13 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
             tailIndex++;
             double tailAsDouble = tailIndex / 2.0 * 2.0;
             int parentIndex = (int) Math.round((tailAsDouble / 2) - 1);
-            if (priority > ((Wrapper<T>) storage[parentIndex]).getPriority()) {
-                while(priority > ((Wrapper<T>) storage[parentIndex]).getPriority()){
-                    
-                }
-               // storage[tailIndex] = storage[parentIndex];
-               // storage[parentIndex] = new Wrapper<>(item, priority);
-            } else {
+            System.out.println("Parent " + parentIndex);
+            System.out.println(((Wrapper<T>) storage[parentIndex]).getPriority());
+            if (priority < ((Wrapper<T>) storage[parentIndex]).getPriority()) {
                 storage[tailIndex] = new Wrapper<>(item, priority);
+            } else {
+                
+
             }
 
         }
