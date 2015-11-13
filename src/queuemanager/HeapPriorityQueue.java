@@ -4,6 +4,9 @@
  */
 package queuemanager;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Jamie Simpson
@@ -51,6 +54,8 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
         if (isEmpty()) {
             storage[0] = new Wrapper<>(item, priority);
             tailIndex++;
+        } else if (tailIndex == capacity - 1) {
+            throw new QueueOverflowException();
         } else if (tailIndex == capacity) {
             throw new QueueOverflowException();
         } else if (tailIndex == 0 || tailIndex == 1) {
@@ -79,16 +84,16 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
                 storage[tailIndex] = new Wrapper<>(item, priority);
             } else {
                 int i = tailIndex;
-                System.out.println("Parent index " + parentIndex);
+                //     System.out.println("Parent index " + parentIndex);
                 while (parentIndex > 1 && priority > ((Wrapper<T>) storage[parentIndex]).getPriority()) {
-                    System.out.println("Parent index " + parentIndex);
+                    //     System.out.println("Parent index " + parentIndex);
                     parentIndex = (int) Math.round((parentIndex / 2.0) - 1.0);
                     i--;
                 }
                 if (parentIndex == 0) {
                     parentIndex = 1;
                 }
-                System.out.println("Parent index " + parentIndex);
+                //     System.out.println("Parent index " + parentIndex);
                 while (i > parentIndex) {
                     storage[i] = storage[i - 1];
                     i--;
@@ -115,9 +120,13 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
 
     /**
      * This method checks which of the original children is greatest and
-     * switches that to position 0 if it is the second. if it is the first, we
-     * can assume everything else is ordered and move everything down a
-     * position, decrementing the tail as we go.
+     * switches that to position 0 if it is the second. We go through a loop
+     * creating a new subset where every item is just moved back a single
+     * position in the array (thus removing the head). This causes issues as
+     * certain situations occur where the child could have a higher priority
+     * than the new parent. This is then taken care of within the new subset by
+     * looping and comparing children with their parents. If the child has a
+     * greater priority, it is swapped.
      *
      * @throws QueueUnderflowException
      */
@@ -125,6 +134,13 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
     public void remove() throws QueueUnderflowException {
         if (isEmpty()) {
             throw new QueueUnderflowException();
+        } else if (tailIndex == 0) {
+            storage[0] = null;
+            tailIndex--;
+        } else if (tailIndex == 1) {
+            storage[0] = storage[1];
+            storage[1] = null;
+            tailIndex--;
         } else {
             int i;
             if (((Wrapper<T>) storage[1]).getPriority() < ((Wrapper<T>) storage[2]).getPriority()) {
@@ -132,12 +148,25 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
                 i = 2;
             } else {
                 i = 0;
-                while (i < tailIndex && storage[i] != null) {
-                    storage[i] = storage[i + 1];
-                    i++;
+            }
+            while (i < tailIndex && storage[i] != null) {
+                storage[i] = storage[i + 1];
+                i++;
+            }
+            //Fix for "grandchild older than grandparent" scenario
+            storage[tailIndex] = null;
+            tailIndex--;
+            for (int j = tailIndex; j > 0; j--) {
+                int parentIndex = (int) Math.round(j / 2.0 - 1);
+                //System.out.println(parentIndex);
+                if (((Wrapper<T>) storage[j]).getPriority() > ((Wrapper<T>) storage[parentIndex]).getPriority()) {
+                    Object[] tempStore = new Object[1];
+                    tempStore[0] = storage[parentIndex];
+                    storage[parentIndex] = storage[j];
+                    storage[j] = tempStore[0];
                 }
             }
-            tailIndex--;
+
         }
     }
 
