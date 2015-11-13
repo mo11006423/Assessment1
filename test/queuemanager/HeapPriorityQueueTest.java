@@ -43,18 +43,7 @@ public class HeapPriorityQueueTest {
      */
     @Test
     public void testRemove() throws Exception {
-        heap.add(person1, 16);
-        heap.add(person2, 12);
-        heap.add(person3, 14);
-        heap.add(person4, 10);
-        heap.add(person5, 9);
-        heap.add(person6, 15);
-        System.out.println(heap.head());
-        System.out.println(heap.toString());
-        heap.remove();
-        System.out.println(heap.head());
-        heap.remove();
-        System.out.println(heap.head());
+
     }
 
     /**

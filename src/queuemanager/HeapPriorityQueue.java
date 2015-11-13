@@ -14,12 +14,38 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
     public int capacity, tailIndex;
     private Object[] storage;
 
+    //Constructor
     public HeapPriorityQueue(int capacity) {
         this.capacity = capacity;
         this.tailIndex = -1;
         storage = new Object[capacity];
     }
 
+    /**
+     * An incredibly messy method which should probably be re-written This
+     * method checks the 4 major conditions first before continuing. These are
+     *
+     * 1 - that the array is empty and we can just add a new item and increment
+     * the tail 2- that the array will not overflow (is not full before adding)
+     * 3 - that if the item added is either the first or second second they have
+     * their priorities checked and then switched with the top of the array if
+     * either is larger, if not they are just added on 4- that the object added
+     * after the first 3 is not greater than the head. If it is it can just be
+     * added and everything shifted 1 space forward if not it has to be checked.
+     *
+     * The last else checks that the item, following the algorithm and
+     * converting values to double (in order for rounding to be applied upwards,
+     * not downwards) is greater or less than any of its parents or
+     * predecessors. it is then inserted accordingly based on its value. Since
+     * the head is always checked, if the parent value comes Back as 0 we have
+     * to assume that it is less than the head but bigger than its first parent
+     * and so parentIndex is set to 1 before shifting everything up 1 place in
+     * the array.
+     *
+     * @param item
+     * @param priority
+     * @throws QueueOverflowException
+     */
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
         if (isEmpty()) {
@@ -75,11 +101,26 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
 
     }
 
+    /**
+     * This method returns the item stored at position 0 in the array as this
+     * will always be the highest priority item.
+     *
+     * @return
+     * @throws QueueUnderflowException
+     */
     @Override
     public T head() throws QueueUnderflowException {
         return (T) storage[0];
     }
 
+    /**
+     * This method checks which of the original children is greatest and
+     * switches that to position 0 if it is the second. if it is the first, we
+     * can assume everything else is ordered and move everything down a
+     * position, decrementing the tail as we go.
+     *
+     * @throws QueueUnderflowException
+     */
     @Override
     public void remove() throws QueueUnderflowException {
         if (isEmpty()) {
@@ -100,11 +141,24 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
         }
     }
 
+    /**
+     * Since tailIndex is set to -1 upon initialisation and never reaches -1
+     * until the last item is removed, we can return true or false based on if
+     * it is -1 or not
+     *
+     * @return
+     */
     @Override
     public boolean isEmpty() {
         return tailIndex == -1;
     }
 
+    /**
+     * Puts the string in brackets along with its priority by looping through
+     * every item in the array where it is not null
+     *
+     * @return
+     */
     @Override
     public String toString() {
         String result = "";

@@ -23,6 +23,22 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         first = null;
     }
 
+    /**
+     * This method should not actually be able to throw an overflow exception as
+     * it is dynamic.
+     *
+     * If it is empty a new first node is added and the head is assigned to that
+     * value, if the size is 1 then the next value of first is set to the new
+     * value and the new values previous pointer is set to first.
+     *
+     * If the size is not 1 then we set the focus node (our main pointer) to the
+     * size and set its next value to the new node and it's previous value to
+     * the focus node.
+     *
+     * @param item
+     * @param priority
+     * @throws QueueOverflowException
+     */
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
         if (isEmpty()) {
@@ -37,6 +53,15 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         size++;
     }
 
+    /**
+     * Checks basic conditions first such as there only being 1 item, otherwise
+     * sets the focus node to the first node and whilst there are still values
+     * we loop. If the item's priority is greater than the current head, we
+     * reassign head to that item otherwise we contionue the loop.
+     *
+     * @return item with highest priority
+     * @throws QueueUnderflowException
+     */
     @Override
     public T head() throws QueueUnderflowException {
         if (size == 1) {
@@ -54,6 +79,18 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         return head.getItem();
     }
 
+    /**
+     * If there is only 1 item, we can safely set first to null. if not we call
+     * the head method (thus assign the head to highest priority)and if it is
+     * the first item, we assign first to the next item and set it's previous to
+     * null.
+     *
+     * If it's not the first we need to check that items at different pointers
+     * are not null and thus reassign next pointers to the previous pointer and
+     * previous pointers to the next-next pointer.
+     *
+     * @throws QueueUnderflowException
+     */
     @Override
     public void remove() throws QueueUnderflowException {
         if (isEmpty()) {
@@ -79,11 +116,22 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         size--;
     }
 
+    /**
+     * if the size is 0 then there are no items otherwise there are
+     *
+     * @return
+     */
     @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
+    /**
+     * Although not following "convention" of brackets, this loops through all
+     * values and outputs accordingly. This was much easier for testing
+     *
+     * @return
+     */
     @Override
     public String toString() {
         setFocus(size);
@@ -106,6 +154,11 @@ public class UnsortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         return output;
     }
 
+    /**
+     * set's the focus node to a specific item up until the specified "index"
+     *
+     * @param index
+     */
     private void setFocus(int index) {
         focus = first;
         for (int i = 0; i < index - 1; i++) {

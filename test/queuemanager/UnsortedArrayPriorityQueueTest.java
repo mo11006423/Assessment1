@@ -204,6 +204,24 @@ public class UnsortedArrayPriorityQueueTest {
         }
     }
 
+    /**
+     * This method tests the exceptional case where the size is 2 and we need to
+     * remove 1 and previous switching would have failed the test.
+     *
+     * @throws QueueOverflowException
+     * @throws QueueUnderflowException
+     */
+    @Test
+    public void furtherremovaltests() throws QueueOverflowException, QueueUnderflowException {
+        UnsortedArrayPriorityQueue unsorted2 = new UnsortedArrayPriorityQueue(2);
+        unsorted2.add(new Person("Paul high"), 2);
+        unsorted2.add(new Person("Paul low"), 3);
+        // System.out.println("Unsorted 2 " + unsorted2.toString());
+        unsorted2.remove();
+        System.out.println(unsorted2.toString());
+
+    }
+
     @Test(expected = QueueUnderflowException.class)
     public void testUnderflowRemove() throws QueueUnderflowException, QueueOverflowException {
         UnsortedArrayPriorityQueue newUnsorted = new UnsortedArrayPriorityQueue(54);

@@ -24,6 +24,13 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         size = 0;
     }
 
+    /**
+     * This method checks if the queue is empty before returning the item with
+     * the highest priority in the list.
+     *
+     * @return item at the top of the list
+     * @throws QueueUnderflowException
+     */
     @Override
     public T head() throws QueueUnderflowException {
         if (isEmpty()) {
@@ -32,6 +39,30 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         return head.getItem();
     }
 
+    /**
+     * This method firstly checks if the queue is empty and if it is sets the
+     * head equal to the new node. There is no next item and no previous item.
+     * it then checks if the next item will be the second item and if its
+     * greater priority it switches the head and the new item around, setting
+     * the next and previous pointers accordingly. if the size is greater than
+     * one then we want to set the focus to the last position in the list. if
+     * thew new priority is then less than this priority we set the next node of
+     * the last item to the new item.
+     *
+     * If it is greater than the head, these items are then moved around
+     * accordingly and for any other scenario, node priorities are looped
+     * through checking to find the position before then seting next and
+     * previous pointers accordingly.
+     *
+     * Example: 4 7 9 and we now want to add 8, 7's next pointer would be set to
+     * 8, 9's previous pointer would be set to 8 and 8's previous set to 7 and
+     * 8's next set to 9.
+     *
+     * [Gets very confusing]
+     *
+     * @param item
+     * @param priority
+     */
     @Override
     public void add(T item, int priority) {
         if (isEmpty()) {
@@ -73,6 +104,12 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         size++;
     }
 
+    /**
+     * Checks if there are items to be removed and sets the head equal to the
+     * next item erasing itself.
+     *
+     * @throws QueueUnderflowException
+     */
     @Override
     public void remove() throws QueueUnderflowException {
         if (isEmpty()) {
@@ -81,15 +118,27 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
             head = null;
         } else {
             head = head.getNext();
+            head.setPrevious(null);
         }
         size--;
     }
 
+    /**
+     * size is only ever 0 when empty to return boolean of size = 0
+     *
+     * @return
+     */
     @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
+    /**
+     *
+     * @return all the stored values as a string by setting the focus node to
+     * head and looping through different scenarios until there are no more
+     * items.
+     */
     @Override
     public String toString() {
         focus = head;
@@ -115,6 +164,12 @@ public class SortedLinkedPriorityQueue<T> implements PriorityQueue<T> {
         return size;
     }
 
+    /**
+     * A helper method that is used to set the focus node (the node we would
+     * currently be on) to the last item stored.
+     *
+     * @param index
+     */
     private void setFocus(int index) {
         focus = head;
         for (int i = 0; i < index - 1; i++) {
