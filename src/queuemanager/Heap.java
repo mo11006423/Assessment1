@@ -12,13 +12,13 @@ import java.util.logging.Logger;
  * @author Jamie Simpson
  * @param <T>
  */
-public class HeapPriorityQueue<T> implements PriorityQueue<T> {
+public class Heap<T> implements PriorityQueue<T> {
 
     public int capacity, tailIndex;
     private Object[] storage;
 
     //Constructor
-    public HeapPriorityQueue(int capacity) {
+    public Heap(int capacity) {
         this.capacity = capacity;
         this.tailIndex = -1;
         storage = new Object[capacity];
@@ -115,7 +115,7 @@ public class HeapPriorityQueue<T> implements PriorityQueue<T> {
      */
     @Override
     public T head() throws QueueUnderflowException {
-        return (T) storage[0];
+        return ((Wrapper<T>) storage[0]).getItem();
     }
 
     /**

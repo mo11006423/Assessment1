@@ -32,30 +32,30 @@ public class QueueManager {
                 System.out.println("Using a sorted array.");
                 break;
             case "ua":
-                // Uncomment the next two lines and remove the two below them
+                // UncSLomment the next two lines and remove the two below them
                 // once you have implemented this variant. And so on below.
-                //q = new UnsortedArrayPriorityQueue<>(8);
-                //System.out.println("Using an unsorted array.");
-                q = new SortedArrayPriorityQueue<>(8);
-                System.out.println("Unsorted array not implemented yet! Using a sorted array instead.");
+                q = new UnsortedArrayPriorityQueue<>(8);
+                System.out.println("Using an unsorted array.");
+                //  q = new SortedArrayPriorityQueue<>(8);
+                //  System.out.println("Unsorted array not implemented yet! Using a sorted array instead.");
                 break;
             case "sl":
-                //q = new SortedLinkedPriorityQueue<>();
-                //System.out.println("Using a sorted linked list.");
-                q = new SortedArrayPriorityQueue<>(8);
-                System.out.println("Sorted linked list not implemented yet! Using a sorted array instead.");
+                q = new SortedLinkedPriorityQueue<>();
+                System.out.println("Using a sorted linked list.");
+                //   q = new SortedArrayPriorityQueue<>(8);
+                //   System.out.println("Sorted linked list not implemented yet! Using a sorted array instead.");
                 break;
             case "ul":
-                //q = new UnsortedLinkedPriorityQueue<>();
-                //System.out.println("Using an unsorted linked list.");
-                q = new SortedArrayPriorityQueue<>(8);
-                System.out.println("Unsorted linked list not implemented yet! Using a sorted array instead.");
+                q = new UnsortedLinkedPriorityQueue<>();
+                System.out.println("Using an unsorted linked list.");
+                //    q = new SortedArrayPriorityQueue<>(8);
+                //    System.out.println("Unsorted linked list not implemented yet! Using a sorted array instead.");
                 break;
             case "h":
-                //q = new Heap<>(8);
-                //System.out.println("Using a heap.");
-                q = new SortedArrayPriorityQueue<>(8);
-                System.out.println("Heap not implemented yet! Using a sorted array instead.");
+                q = new Heap<>(8);
+                System.out.println("Using a heap.");
+                //  q = new SortedArrayPriorityQueue<>(8);
+                //   System.out.println("Heap not implemented yet! Using a sorted array instead.");
                 break;
             default:
                 q = new SortedArrayPriorityQueue<>(8);

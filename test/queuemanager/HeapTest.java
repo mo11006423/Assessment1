@@ -12,9 +12,9 @@ import static org.junit.Assert.*;
  *
  * @author Jamie Simpson
  */
-public class HeapPriorityQueueTest {
+public class HeapTest {
 
-    HeapPriorityQueue heap = new HeapPriorityQueue(6);
+    Heap heap = new Heap(6);
     Person person1 = new Person("Jamie");
     Person person2 = new Person("Andrew");
     Person person3 = new Person("Rachel");
@@ -23,7 +23,7 @@ public class HeapPriorityQueueTest {
     Person person6 = new Person("Thomas");
 
     /**
-     * Test of add method, of class HeapPriorityQueue. Understandably more tests
+     * Test of add method, of class Heap. Understandably more tests
      * could be done on this front.
      */
     @Test
@@ -46,7 +46,7 @@ public class HeapPriorityQueueTest {
     }
 
     /**
-     * Test of head method, of class HeapPriorityQueue. Tests that every time a
+     * Test of head method, of class Heap. Tests that every time a
      * smaller priority is added that the head is NOT overwritten and that when
      * a higher priority is added that the head is changed and switched to
      * somewhere else
@@ -67,7 +67,7 @@ public class HeapPriorityQueueTest {
     }
 
     /**
-     * Test of remove method, of class HeapPriorityQueue.
+     * Test of remove method, of class Heap.
      */
     @Test
     public void testRemove() throws Exception {
@@ -94,7 +94,7 @@ public class HeapPriorityQueueTest {
     }
 
     /**
-     * Test of isEmpty method, of class HeapPriorityQueue. Tests that upon
+     * Test of isEmpty method, of class Heap. Tests that upon
      * initialisation that the heap is empty. Then adds an item to test it's not
      * empty, removes the item to test is empty again and finally adds 2 items
      * and checks the conditions for each remove call
